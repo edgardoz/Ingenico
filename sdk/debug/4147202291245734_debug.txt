@@ -1,0 +1,2 @@
+{"category":null,"code":"300620","httpStatusCode":409,"id":null,"message":"MERCHANTREFERENCE AUTH_CCPS_3093511578 ALREADY EXISTS","propertyName":null,"requestId":"4978650"}
+

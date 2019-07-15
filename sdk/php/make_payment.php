@@ -1,0 +1,130 @@
+<?php
+
+namespace Ingenico\Connect\Sdk;
+
+use DateTime;
+use Ingenico\Connect\Sdk\ApiException;
+use Ingenico\Connect\Sdk\CallContext;
+use Ingenico\Connect\Sdk\ClientTestCase;
+use Ingenico\Connect\Sdk\ValidationException;
+use Ingenico\Connect\Sdk\Domain\Definitions\Address;
+use Ingenico\Connect\Sdk\Domain\Definitions\AmountOfMoney;
+use Ingenico\Connect\Sdk\Domain\Definitions\Card;
+use Ingenico\Connect\Sdk\Domain\Definitions\CompanyInformation;
+//+
+use Ingenico\Connect\Sdk\Domain\Definitions\FraudFields;
+//-
+use Ingenico\Connect\Sdk\Domain\Payment\ApprovePaymentRequest;
+use Ingenico\Connect\Sdk\Domain\Payment\CancelApprovalPaymentResponse;
+use Ingenico\Connect\Sdk\Domain\Payment\CancelPaymentResponse;
+use Ingenico\Connect\Sdk\Domain\Payment\CreatePaymentRequest;
+use Ingenico\Connect\Sdk\Domain\Payment\CreatePaymentResponse;
+use Ingenico\Connect\Sdk\Domain\Payment\PaymentApprovalResponse;
+use Ingenico\Connect\Sdk\Domain\Payment\PaymentResponse;
+use Ingenico\Connect\Sdk\Domain\Payment\TokenizePaymentRequest;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\AddressPersonal;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\ApprovePaymentNonSepaDirectDebitPaymentMethodSpecificInput;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\CardPaymentMethodSpecificInput;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\ContactDetails;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\Customer;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\LineItem;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\LineItemInvoiceData;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\Order;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\OrderApprovePayment;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\OrderInvoiceData;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\OrderReferences;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\OrderReferencesApprovePayment;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\PersonalInformation;
+use Ingenico\Connect\Sdk\Domain\Payment\Definitions\PersonalName;
+use Ingenico\Connect\Sdk\Domain\Token\CreateTokenResponse;
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+include "autoloader.php";
+autoload( __DIR__ . "/lib");
+autoload( __DIR__ . "/src");
+
+$paymentDetails = $_POST;
+
+$merchantId = isset($paymentDetails['merchantId']) ? $paymentDetails['merchantId'] : "9690";
+
+//ob_start();print_r($paymentDetails);$POSTED = ob_get_clean();mail("juan.sarria@everlivesolutions.com","paymentDetails",$POSTED);
+
+include "credentials.php";
+
+$communicatorConfiguration = new CommunicatorConfiguration($ApiKeyId, $ApiSecret, $BaseUri, $Integrator);
+$connection = new DefaultConnection();
+$communicator = new Communicator($connection, $communicatorConfiguration);
+
+$client = new Client($communicator);
+
+$card = new Card();
+$card->cvv = isset($paymentDetails['cvv']) ? $paymentDetails['cvv'] : "321";
+$card->expiryDate = isset($paymentDetails['expiryDate']) ? str_replace("/","",$paymentDetails['expiryDate']) : "0318";
+
+$cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
+$cardPaymentMethodSpecificInput->card = $card;
+$cardPaymentMethodSpecificInput->requiresApproval = false;
+$cardPaymentMethodSpecificInput->token = isset($paymentDetails['token']) ? $paymentDetails['token'] : "0edbf87e-ade8-4166-b37d-3f241e3e7178";
+//+ARUZ 27-02-19
+$cardPaymentMethodSpecificInput->skipFraudService = false;
+//-ARUZ 27-02-19
+
+$name = new PersonalName();
+$name->firstName = isset($paymentDetails['firstName']) ? $paymentDetails['firstName'] : "Juan";
+$name->surname = isset($paymentDetails['surname']) ? $paymentDetails['surname'] : "Sarria";
+
+$contactDetails = new ContactDetails();
+$contactDetails->emailAddress = isset($paymentDetails['emailAddress']) ? $paymentDetails['emailAddress'] : "jaunsarria@gmail.com";
+$contactDetails->emailMessageType = "html";
+
+$personalInformation = new PersonalInformation();
+$personalInformation->name = $name;
+
+$invoiceData = new OrderInvoiceData();
+$invoiceData->invoiceNumber = isset($paymentDetails['invoiceNumber']) ? $paymentDetails['invoiceNumber'] : "518108228985187";
+
+$references = new OrderReferences();
+$references->invoiceData = $invoiceData;
+$references->merchantReference = isset($paymentDetails['merchantReference']) ? $paymentDetails['merchantReference'] : "518108228985187-10"; // CHANGE THIS EVERY TIME
+
+$amountOfMoney = new AmountOfMoney();
+$amountOfMoney->amount = isset($paymentDetails['amount']) ? (int)$paymentDetails['amount'] : 155000;
+$amountOfMoney->currencyCode = isset($paymentDetails['currencyCode']) ? $paymentDetails['currencyCode'] : "USD";
+
+$customer = new Customer();
+$customer->personalInformation = $personalInformation;
+$customer->contactDetails = $contactDetails;
+//-MC 22-02-2019
+$fraudFields = new FraudFields();
+$arrayReglas= array('','','','','payment');
+$fraudFields->userData=$arrayReglas;
+//+MC 22-02-2019
+
+$order = new Order();
+$order->amountOfMoney = $amountOfMoney;
+$order->customer = $customer;
+$order->references = $references;
+
+$createPaymentRequest = new CreatePaymentRequest();
+$createPaymentRequest->cardPaymentMethodSpecificInput = $cardPaymentMethodSpecificInput;
+$createPaymentRequest->fraudFields=$fraudFields; //+MC 22-02-2019
+$createPaymentRequest->order = $order;
+
+//print "createPaymentRequest: <pre>";print_r($createPaymentRequest);print "</pre>";
+
+$result = array();
+
+try {
+    $result = $client->merchant($merchantId)->payments()->create($createPaymentRequest);
+} catch (DeclinedPaymentException $e) {
+    $result = $e->getPaymentResult();
+} catch (ApiException $e) {
+    $result = $e->getErrors();
+} catch (ResponseException $e) {
+    $result = $e->getErrors()[0];
+}
+
+header('Content-Type: application/json');
+echo is_object($result) ? json_encode($result) : $result; //falta Try en conversion a json

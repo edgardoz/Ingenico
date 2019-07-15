@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Ingenico Submit Payment</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="sdk/js/dist/connectsdk.js"></script>
+ </head>
+ <body>
+
+	<div id="divEncriptedResult" style="border:solid 1px green;padding:30px;"></div>
+	<div id="divPayment" style="border:solid 1px green;padding:30px;"></div>
+	<div id="divError" style="border:solid 1px red;padding:30px;"></div>
+
+	<script>
+
+		// https://secure-excellence-resorts.com/ingenico/submit.html
+
+		var merchantId = "9690",
+			d = new Date(),
+			//merchantOrderId = d.getTime() + "" + Math.floor((Math.random() * 100) + 1),
+			merchantOrderId = Math.floor((Math.random() * 4294967295) + 1),
+			paymentProductId = "1",
+			paymentDetails = { 
+				totalAmount: 155000, // in cents
+				countryCode: "US",
+				currency: "USD", // set currency, see dropdown
+				locale: "en_US", // as specified in the config center
+				isRecurring: false, // set if recurring
+
+				merchantOrderId: merchantOrderId,
+				merchantReference: "AcmeOrder" + merchantOrderId,
+
+				cardNumber: "4111 1111 1111 1111",
+				//cardNumber: "4111111111111111",
+				cardholderName: "Juan F. Sarria",
+				cvv: "321",
+				expiryDate: "12 23"
+			};
+
+			
+
+		function startPayment(session) {
+			console.log("session", session);
+
+			var paymentRequest = session.getPaymentRequest();
+
+			session.getPaymentProduct(paymentProductId, paymentDetails, true).then(function(paymentProduct) {
+
+				paymentRequest.setPaymentProduct(paymentProduct);
+				paymentRequest.setValue("cardNumber", paymentDetails.cardNumber); // This should be the unmasked value. 
+				paymentRequest.setValue("cvv", paymentDetails.cvv);
+				paymentRequest.setValue("expiryDate", paymentDetails.expiryDate);
+			   
+				if (!paymentRequest.isValid()) {
+					// We have validation errors.
+					console.log("We have validation errors",  paymentRequest.getErrorMessageIds()); //This is an array of all the validation errors
+				}
+
+				console.log("getting ready to encryptor");
+
+				var encryptor = session.getEncryptor();
+
+				encryptor.encrypt(paymentRequest).then(function(encryptedCustomerInput) {
+					
+					console.log("encryptedCustomerInput -> ", encryptedCustomerInput)
+					$('#divEncriptedResult').html(encryptedCustomerInput);
+
+					console.log("paymentRequest")
+
+					$.get("/ingenico/sdk/php/create_payment.php", {
+						merchantId: merchantId,
+						paymentDetails: paymentDetails,
+						encryptedCustomerInput: encryptedCustomerInput
+					})
+					.done(function(createPaymentResponse) {
+
+						console.log("createPaymentResponse")
+						$('#divPayment').html(JSON.stringify(createPaymentResponse));
+						
+					})
+					.fail(function() {
+						alert("createPaymentResponse error");
+					});
+
+				}, function(errors) {
+					
+					// The promise failed, inform the user what happened.
+					console.log("The promise failed 1", JSON.stringify(errors))
+					$('#divError').html(JSON.stringify(errors));
+
+				});
+
+			}, function(errors) {
+
+				// The promise failed, inform the user what happened.
+				console.log("The promise failed 2", JSON.stringify(errors))
+				$('#divError').html(JSON.stringify(errors));
+
+			});
+		}
+
+		$.get("/ingenico/sdk/php/session_create.php", {
+			merchantId: 9690,
+			//paymentDetails: paymentDetails
+		})
+		.done(function(data) {
+			//alert("data: " + data);
+			var session = new connectsdk.Session({ 
+				//estos 4 valores se obtienen de la sesion creada en el server
+				clientSessionID : data.clientSessionId,
+				customerId : data.customerId,
+				clientApiUrl : data.clientApiUrl,
+				assetUrl : data.assetUrl
+			});
+
+			startPayment(session);
+		})
+		.fail(function() {
+			alert("error calling session_create");
+		});
+
+  
+	</script>
+
+ </body>
+</html>

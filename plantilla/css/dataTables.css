@@ -1,0 +1,902 @@
+/*
+ * jQuery UI specific styling
+ */
+.paging_two_button .ui-button {
+	float: left;
+	cursor: pointer; *
+	cursor: hand;
+}
+
+.paging_full_numbers .ui-button {
+	padding: 2px 6px;
+	margin: 0;
+	cursor: pointer; *
+	cursor: hand;
+	/*color: #333 !important;*/
+}
+
+.dataTables_paginate .ui-button {
+	margin-right: -0.1em !important;
+}
+
+.paging_full_numbers {
+	width: 350px !important;
+}
+
+.dataTables_wrapper .ui-toolbar {
+	padding: 0px;
+}
+
+.dataTables_paginate {
+	width: auto;
+}
+
+.dataTables_info {
+	padding-top: 3px;
+}
+
+table.display thead th {
+	padding: 3px 0px 3px 2px;
+	cursor: pointer; *
+	cursor: hand;
+}
+
+div.dataTables_wrapper .ui-widget-header {
+	font-weight: normal;
+}
+
+/*
+ * Sort arrow icon positioning
+ */
+table.display thead th div.DataTables_sort_wrapper {
+	position: relative;
+	padding-right: 13px;
+}
+
+table.display thead th div.DataTables_sort_wrapper span {
+	position: absolute;
+	top: 50%;
+	margin-top: -8px;
+	right: 0;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Everything below this line is the same as demo_table.css. This file is
+ * required for 'cleanliness' of the markup
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables features
+ */
+.dataTables_wrapper {
+	position: relative;
+	clear: both;
+}
+
+.dataTables_processing {
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	width: 250px;
+	margin-left: -125px;
+	border: 1px solid #ddd;
+	text-align: center;
+	color: #999;
+	font-size: 11px;
+	padding: 2px 0;
+}
+
+.dataTables_length {
+	width: 40%;
+	float: left;
+}
+
+.dataTables_filter {
+	width: 50%;
+	float: right;
+	text-align: right;
+}
+
+.dataTables_info {
+	width: 50%;
+	float: left;
+}
+
+.dataTables_paginate {
+	float: right;
+	text-align: right;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables display
+ */
+table.display {
+	margin: 0 auto;
+	clear: both;
+	width: 100%;
+
+	/* Note Firefox 3.5 and before have a bug with border-collapse
+	 * ( https://bugzilla.mozilla.org/show%5Fbug.cgi?id=155955 ) 
+	 * border-spacing: 0; is one possible option. Conditional-css.com is
+	 * useful for this kind of thing
+	 *
+	 * Further note IE 6/7 has problems when calculating widths with border width.
+	 * It subtracts one px relative to the other browsers from the first column, and
+	 * adds one to the end...
+	 *
+	 * If you want that effect I'd suggest setting a border-top/left on th/td's and 
+	 * then filling in the gaps with other borders.
+	 */
+}
+
+table.display thead th { /*padding: 3px 18px 3px 10px;*/
+	background-color: #4CBBE5;
+	border-bottom: 1px solid black;
+	border-right: 1px solid #C0C0C0;
+	font-weight: bold;
+	cursor: pointer; *
+	cursor: hand;
+	text-align: left;
+	color: white;
+	/*background: url("../images/subTable_header_bg.gif") repeat-x scroll 0 0
+		transparent;
+	background-size: 100%;*/
+	background-position: left top;
+	background-repeat: repeat-x;
+}
+
+table.display tfoot th {
+	padding: 3px 18px 3px 10px;
+	border-top: 1px solid black;
+	font-weight: bold;
+}
+
+table.display tr.heading2 td {
+	border-bottom: 1px solid #aaa;
+}
+
+table.display td { /*padding: 3px 10px;*/
+	
+}
+
+table.display td.center {
+	text-align: center;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables sorting
+ */
+.sorting_asc {
+	background: url('../images/jquery/sort_asc.png') no-repeat center right;
+}
+
+.sorting_desc {
+	background: url('../images/jquery/sort_desc.png') no-repeat center right;
+}
+
+.sorting {
+	background: url('../images/jquery/sort_both.png') no-repeat center right;
+}
+
+.sorting_asc_disabled {
+	background: url('../images/jquery/sort_asc_disabled.png') no-repeat
+		center right;
+}
+
+.sorting_desc_disabled {
+	background: url('../images/jquery/sort_desc_disabled.png') no-repeat
+		center right;
+}
+
+th:active {
+	outline: none;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables row classes
+ */
+tr.odd {
+	background-color: #F3FAFE;
+}
+
+tr.even {
+	background-color: white;
+}
+
+.datatablerowhighlight {
+	background-color: #ECFFB3;
+}
+
+#headertab .datatablerowhighlight .overrid {
+	background-color: #4A75B5;
+}
+
+.ui-buttonset .ui-button {
+	padding: 5px;
+}
+
+.advancemerchant-margintop {
+	margin-top: 8px;
+}
+
+.advancemerchant-marginleft {
+	margin-left: 8px;
+}
+
+.merchantApitabledata {
+	border-collapse: collapse;
+	border: 1px solid #C0C0C0;
+	margin-left: 0px;
+}
+
+.merchantApitabledataMain { /*border-collapse:collapse;*/
+	border: 1px solid #0000000;
+	padding: 0;
+}
+
+/* CSS for pop up in allacountvalidation */
+.rich-mpnl-contentAdvance {
+	background-color: #F3F2F2;
+	border-color: #C0C0C0;
+}
+
+.rich-mpnl-content {
+	background-color: inherit;
+	border-style: solid;
+	border-width: 1px;
+	padding: 1px;
+}
+
+.rich-mpnl-trim {
+	position: relative;
+	z-index: 0;
+}
+
+.rich-mpnl-ovf-hd {
+	overflow: hidden;
+}
+
+.rich-mpnl-header {
+	background-position: left top;
+	background-repeat: repeat-x;
+	border-style: solid;
+	border-width: 1px;
+	padding: 2px;
+}
+
+.rich-mpnl-text {
+	color: #FFFFFF;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.rich-mpnl-header { /* background-color: #4A75B5;*/
+	background-color: #0085CF;
+	border-color: #4A75B5;
+}
+
+.popup-subheader {
+	background-color: #EAF0F8;
+}
+
+.rich-table {
+	margin: 5px;
+}
+
+.rich-table {
+	background-color: #FFFFFF;
+	border-collapse: collapse;
+	border-left: 1px solid #C0C0C0;
+	border-top: 1px solid #C0C0C0;
+	empty-cells: show;
+}
+
+.rich-text-area {
+	font-family: Arial, Verdana, sans-serif;
+	
+	padding: 4px;
+	width: 100%;
+	resize: none;
+}
+
+.rich-table-cell {
+	color: #000000;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	padding: 4px;
+}
+
+pre {
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	white-space:pre-wrap;
+}
+
+.rich-table-thead {
+	border-bottom: 1px solid #C0C0C0;
+}
+
+.height18 {
+	height: 25px;
+}
+
+.popinnerlabel {
+	color: #5BA9E5;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.Paymentinquarycontent {
+	background-color: #FFFFFF;
+	margin: 0;
+	padding: 2px 9px;
+}
+
+/*Additional CSS for accountvalidation summary */
+.gridOrderStatusContent {
+	color: #575757;
+	font-weight: bold;
+	line-height: 34px;
+	margin: 0;
+	padding: 0 12px;
+}
+
+.gridOrderStatusContent span {
+	color: #218A0A;
+}
+
+.gridmain {
+	background-color: #FFFFFF;
+	border: 1px solid #A7BFC1;
+}
+
+.center {
+	margin: auto;
+	/*width:80%;*/
+}
+
+.alignaccountvalidsummary {
+	text-align: center;
+}
+
+/*additional CSS for fraud summary */
+.gridOrderStatusContentfraud {
+	color: #218A0A;
+	font-weight: bold;
+}
+
+.trminitable {
+	background-color: #A7BFC1;
+	border: 1px solid #4297D7;
+}
+
+.fraudsummtabledataMain {
+	padding-left: 3%;
+	width: 100%;
+}
+
+.paymentinqwin {
+	float: left;
+	width: 250px;
+}
+
+.paymentinqinfotext {
+	border: 1px solid;
+	border-color: #C0C0C0 #000000 #000000 #C0C0C0;
+	border-radius: 5px 5px 5px 5px;
+	color: #000000;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+}
+
+/* ADDITIONAL CSS FOR ALLACOUNTVALIDATION POPUP */
+.allacountvalidtdborder {
+	border-right: 1px solid #C0C0C0;
+}
+
+.allacountvalidtdborder-bottom {
+	border-bottom: 1px solid #C0C0C0;
+}
+/* ADDITIONAL CSS FOR DOCUMENTATION */
+.rich-panel {
+	border-style: solid;
+	border-width: 1px;
+	padding: 1px;
+	background-color: #F3F2F2;
+	border-color: #C0C0C0;
+}
+
+.rich-panel-body {
+	background-color: #FFFFFF;
+}
+
+.rich-panel-body {
+	padding: 10px;
+}
+
+.rich-panel-body {
+	color: #000000;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+}
+
+.rich-pmenu {
+	overflow: hidden;
+	padding-right: 4px;
+}
+
+.rich-pmenu-top-group-div {
+	border-color: #C0C0C0;
+}
+
+.rich-pmenu-top-group-div {
+	border: 1px solid;
+	margin-bottom: 3px;
+	overflow: hidden;
+	padding: 1px;
+	width: 100%;
+}
+
+.rich-pmenu-top-group {
+	background-color: #4A75B5;
+	color: #FFFFFF;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.rich-pmenu-group {
+	border-top-color: #C0C0C0;
+	color: #000000;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.rich-pmenu-top-group {
+	background-position: left top;
+	background-repeat: repeat-x;
+	border-top: medium none;
+	cursor: pointer;
+	height: 20px;
+	margin-top: 0;
+	padding: 2px 1px 2px 8px;
+}
+
+.rich-pmenu-nowrap {
+	white-space: nowrap;
+}
+
+.rich-pmenu-group-self-label {
+	padding-left: 5px;
+	width: 100%;
+}
+
+.rich-pmenu-top-group {
+	background-color: #4A75B5;
+	color: #FFFFFF;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.rich-pmenu-top-group-div {
+	border-color: #C0C0C0;
+}
+
+.rich-pmenu-item {
+	border-top-color: #C0C0C0;
+	color: #000000;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+}
+
+.rich-pmenu-item {
+	border-top: 1px solid;
+	cursor: pointer;
+	margin-top: 1px;
+	/*padding: 2px 1px 1px;*/
+}
+
+.rich-pmenu-item {
+	border-top-color: #C0C0C0;
+	color: #000000;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+}
+
+.rowColor1 {
+	background: #f3fafe;
+	padding: 1px 5px;
+}
+
+.rowColor2 {
+	background: #FFF;
+	padding: 1px 5px;
+}
+
+.allacountvalidtdborder {
+	border: 1px solid #A6C9E2;
+	height: 19px;
+}
+
+.tdbordercollapse {
+	border-collapse: collapse;
+}
+
+.alltabledatafont {
+	font-size: 10px;
+}
+
+.rich-table-footer-iian {
+	background-color: #CCCCCC;
+}
+
+.hide {
+	visibility: hidden
+}
+
+#subtabmenu .ui-helper-clearfix {
+	background: white;
+	border: 1px solid white;
+}
+
+#subtabmenu   li {
+	background-color: #ebebeb;
+	border: 1px solid #ccc;
+	font-weight: normal;
+}
+
+#subtabmenu .header {
+	border-bottom: 1px solid #A7BFC1;
+	color: #4E4A5D;
+	height: 33px;
+	line-height: 35px;
+	padding-left: 8px;
+}
+
+#subtabmenu   li {
+	background-color: #ebebeb;
+	border: 1px solid #ccc;
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: normal;
+}
+
+#dispute  li {
+	background-color: #43A2CA;
+	border: 1px solid #4297D7;
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: normal;
+	width: auto;
+}
+
+#inquiries li {
+	background-color: #43A2CA;
+	border: 1px solid #4297D7;
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: normal;
+	width: auto;
+}
+
+#inquiries .ui-widget-content {
+	color: white;
+}
+
+#refunds li {
+	background-color: #43A2CA;
+	border: 1px solid #4297D7;
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: normal;
+	width: auto;
+}
+
+#refunds .ui-widget-content {
+	color: white;
+}
+
+#dispute .ui-widget-content {
+	color: white;
+}
+
+#dispute  .ui-state-hover a {
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: normal;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	color: white;
+}
+
+#subtabmenudis  .ui-state-active a {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background-color: #75CB4A;
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: normal;
+	border: 0px;
+	
+}
+
+#subtabmenudis  .ui-state-hover a {
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: normal;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+#dispute  .ui-state-active a {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background-color: #75CB4A;
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: normal;
+	border: 0px;
+	color: white;
+}
+
+#subtabmenu  .ui-state-active a {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background-color: #DEF9BD;
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: normal;
+	border: 0px;
+	color: #0061CE;
+	/*line-height: 16px;*/
+}
+
+#subtabmenu  .ui-state-hover a {
+	background-color: #cccccc;
+	/*font-family: Arial, Verdana, sans-serif;*/
+	font-weight: normal;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.menutab li a {
+	color: white;
+}
+
+.menutab li:hover {
+	background-color: #DEF9BD;
+	color: #FFFFFF;
+	font-family: Arial, Verdana, sans-serif;
+	border: 1px solid #65B53D;
+	font-weight: normal;
+}
+
+#tabs .ui-widget-content {
+	background-color: white; ! important;
+	color: #222222;
+}
+
+.rich-table-footer-chargeback {
+	background-color: #4a75b5;
+	border-bottom: 0 solid silver;
+	border-right: 1px solid silver;
+	color: #FFFFFF;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: 700;
+	padding: 4px 4px 4px 10px;
+	text-align: left;
+}
+
+/* chargebackreversal css */
+.chargebackrevheader { /*border-bottom: 1px solid #A7BFC1; */
+	color: #4E4A5D;
+	height: 33px;
+	line-height: 35px;
+	padding-left: 8px;
+}
+
+#subtabmenu .ui-widget-header a {
+	color: #4E4A5D;
+}
+
+#cc_table_wrapper .ui-widget-header {
+	display: none;
+}
+
+#detailList_cc_div .ui-widget-header {
+	display: none;
+}
+
+#dd_table_wrapper .ui-widget-header {
+	display: none;
+}
+
+#dd_detailList_div .ui-widget-header {
+	display: none;
+}
+
+.tdbordercollapse {
+	border-collapse: collapse;
+}
+
+#bt_table_wrapper .ui-widget-header {
+	display: none;
+}
+
+#detailList_bt_div .ui-widget-header {
+	display: none;
+}
+
+#rbt_table_wrapper .ui-widget-header {
+	display: none;
+}
+
+#detailList_rbt_div .ui-widget-header {
+	display: none;
+}
+
+#ci_table_wrapper .ui-widget-header {
+	display: none;
+}
+
+#detailList_ci_div .ui-widget-header {
+	display: none;
+}
+
+#ewal_table_wrapper .ui-widget-header {
+	display: none;
+}
+
+#detailList_ewal_div .ui-widget-header {
+	display: none;
+}
+
+#pv_table_wrapper .ui-widget-header {
+	display: none;
+}
+
+#detailList_pv_div .ui-widget-header {
+	display: none;
+}
+
+#cash_table_wrapper .ui-widget-header {
+	display: none;
+}
+
+#detailList_cash_div .ui-widget-header {
+	display: none;
+}
+
+.hr {
+	background-color: #DEF9BD;
+	height: 3px;
+	/*  margin-left: 3px;*/
+	margin-top: 0;
+}
+
+.tablegridchargeback {
+	margin-bottom: 9px;
+	overflow: auto;
+}
+
+.jsalignright {
+	text-align: right;
+}
+
+#dth .DataTables_sort_wrapper {
+	text-align: center;
+}
+
+.hrOrder {
+	background-color: #6EAC2C;
+	height: 3px;
+	/*  margin-left: 3px;*/
+	margin-top: 0;
+}
+
+#iinAnalysisReports_table_wrapper .ui-widget-header {
+	display: none;
+}
+
+#cancel_chk .DataTables_sort_icon {
+	display: none;
+}
+
+#archivedNewsDate .DataTables_sort_icon {
+	display: none;
+}
+
+#archivedNewsItems .DataTables_sort_icon {
+	display: none;
+}
+
+.archived_textcolor {
+	color: #000000;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+.archived_margin {
+	margin-left: 4px;
+}
+
+#merchantStatements_methodId .DataTables_sort_wrapper {
+	width: 90px;
+}
+
+#merchantStatements_productId .DataTables_sort_wrapper {
+	width: 90px;
+}
+
+#orderamount .DataTables_sort_wrapper {
+	width: 55px;
+}
+
+#paidamount .DataTables_sort_wrapper {
+	width: 50px;
+}
+
+#laststatus .DataTables_sort_wrapper {
+	width: 83px;
+}
+
+#rcode .DataTables_sort_wrapper {
+	width: 83px;
+}
+
+#refund1 .ui-widget-content {
+	border: 0px solid white;
+}
+
+/*end*/
+/* CSS ADDED FOR ACCOUNT VALIDATION TH CENTER */
+#lbl_countrycode .DataTables_sort_wrapper {
+	text-align: center;
+}
+
+#lbl_country .DataTables_sort_wrapper {
+	text-align: center;
+}
+
+#lbl_number .DataTables_sort_wrapper {
+	text-align: center;
+}
+
+#_labl_counttrycode .DataTables_sort_wrapper {
+	text-align: center;
+}
+
+#labl_country .DataTables_sort_wrapper {
+	text-align: center;
+}
+
+#labl_checkresult .DataTables_sort_wrapper {
+	text-align: center;
+}
+
+#labl_number .DataTables_sort_wrapper {
+	text-align: center;
+}
+#dispute .ui-tabs-active 
+{
+margin-bottom: 0px;
+padding-bottom: 0px;
+}
+#inquiries  .ui-tabs-active 
+{
+margin-bottom: 0px;
+padding-bottom: 0px;
+}
+#refunds  .ui-tabs-active 
+{
+margin-bottom: 0px;
+padding-bottom: 0px;
+}
+/* end */
+/* Documentation a color */
+
+.DocLink
+{
+	color:blue;
+	text-decoration: underline;
+}
+
+/* end */

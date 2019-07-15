@@ -1,0 +1,207 @@
+1
+UPDATE RECORDS SET `REDIRECT` = 'report.php?EXPORT=0&publisher_name=&STATUS=&DATE_FIELD=CREATED&FROM=2018-05-04&TO=2019-05-28&RES_ID=319283118648118&orderID=&GUEST_NAME=',`STATUS` = '0',`RES_ID` = '319283118648118',`GUEST_NAME` = 'Justine Sanchez',`GUEST_EMAIL` = 'justine.c.sanchez@gmail.com',`ROOMS` = '1',`CHECK_IN` = '2019-06-23',`CHECK_OUT` = '2019-07-02',`GUESTS` = '2',MSG = CONCAT(MSG, '--'),`publisher-name` = 'excellence',`card-number` = '',`card-cvv` = '512',`card-name` = 'Justine C Sanchez',`card-address1` = '2651 Sawmill Meadows Ave',`card-city` = 'Dublin',`card-state` = 'OH',`card-zip` = '43016',`card-country` = 'US',`card-type` = 'MasterCard',`card-exp` = '08/22',`card-amount` = '3168',`email` = 'justine.c.sanchez@gmail.com',`admin-email` = '',`INGENICO_TOKEN` = '6fb68786-be36-432b-bcf8-b6bd4168e669' WHERE UID='151892'
+1
+UPDATE RECORDS SET `REDIRECT` = '',`card-number` = '4147202180329235',`card-cvv` = '128',`card-name` = 'John P Hellige',`card-address1` = '9751 Fall ridge trial',`card-city` = 'Sunset Hills',`card-state` = 'MO',`card-zip` = '63127',`card-country` = 'US',`card-type` = 'Visa',`card-exp` = '02/24',`email` = '',`INGENICO_TOKEN` = '7bef6a5d-73d2-4e5e-a106-d233b0c71cce' WHERE RES_ID='319279270150493' AND STATUS='0'
+1
+UPDATE RECORDS SET `REDIRECT` = '',`card-number` = '4147202386954596',`card-cvv` = '963',`card-name` = 'J David Ballance',`card-address1` = '3827 SW 339th St',`card-city` = 'Federal Way',`card-state` = 'WA',`card-zip` = '98023',`card-country` = 'US',`card-type` = 'Visa',`card-exp` = '07/23',`email` = 'davidjballance@yahoo.com',`INGENICO_TOKEN` = 'f89e4c32-c4dd-4fc5-86a6-353b8ce3e74c' WHERE RES_ID='218254210608784' AND STATUS='0'
+1
+UPDATE RECORDS SET `REDIRECT` = '',`card-number` = '4147202386954596',`card-cvv` = '963',`card-name` = 'James D Ballance',`card-address1` = '3827 SW 339th St',`card-city` = 'Federal Way',`card-state` = 'WA',`card-zip` = '98023',`card-country` = 'US',`card-type` = 'Visa',`card-exp` = '07/23',`email` = 'davidjballance@yahoo.com',`INGENICO_TOKEN` = 'f89e4c32-c4dd-4fc5-86a6-353b8ce3e74c' WHERE RES_ID='219271621700682' AND STATUS='0'
+1
+UPDATE RECORDS SET `REDIRECT` = 'report.php?EXPORT=0&publisher_name=&STATUS=&DATE_FIELD=CREATED&FROM=2017-05-01&TO=2019-05-28&RES_ID=119284572042641&orderID=&GUEST_NAME=',`STATUS` = '0',`RES_ID` = '119284572042641',`GUEST_NAME` = 'Claudia Mena',`GUEST_EMAIL` = 'claudia.g.mena@gmail.com',`ROOMS` = '1',`CHECK_IN` = '2019-06-25',`CHECK_OUT` = '2019-06-29',`GUESTS` = '2',MSG = CONCAT(MSG, '--'),`publisher-name` = 'excellence2',`card-number` = '',`card-cvv` = '445',`card-name` = 'Claudia Mena',`card-address1` = '144 Rockwood Avenue',`card-city` = 'Pittsburgh',`card-state` = 'PA',`card-zip` = '15221',`card-country` = 'US',`card-type` = 'Visa',`card-exp` = '09/19',`card-amount` = '2208',`email` = 'claudia.g.mena@gmail.com',`admin-email` = '',`INGENICO_TOKEN` = '61d82f43-3347-41c7-a3ec-0c94ae3f8773' WHERE UID='153368'
+Array
+(
+    [ONLY_PENDING] => 1
+    [UPDATE] => 519151372471901
+    [MSG] => Rebooking
+
+agencia se descuenta la comision**cqg
+    [card_amount] => 2376
+)
+
+UPDATE RECORDS SET `REDIRECT` = '',MSG = CONCAT(MSG, '--Rebooking
+
+agencia se descuenta la comision**cqg'),`card-amount` = '2376' WHERE RES_ID='519151372471901' AND STATUS='0'
+Array
+(
+    [UPDATE] => 149333
+    [QS] => EXPORT=0&publisher_name=&STATUS=&DATE_FIELD=CREATED&FROM=2019-03-25&TO=2019-05-28&RES_ID=319280481598493++++&orderID=&GUEST_NAME=
+    [STATUS] => 0
+    [RES_ID] => 319280481598493
+    [publisher_name] => excellence
+    [GUEST_NAME] => Amanda  Leschak
+    [GUEST_EMAIL] => All128@pitt.edu
+    [CHECK_IN] => 2019-06-27
+    [CHECK_OUT] => 2019-07-01
+    [ROOMS] => 1
+    [GUESTS] => 2
+    [MSG] => 
+    [card_type] => MasterCard
+    [card_number] => 
+    [card_exp] => 04/23
+    [card-exp-MM] => 04
+    [card-exp-YY] => 23
+    [card_cvv] => 101
+    [INGENICO_TOKEN] => 
+    [card_amount] => 1664
+    [card_name] => Amanda Leschak
+    [card_country] => US
+    [card_state] => PA
+    [card_address1] => 6907 Wilson Street
+    [card_city] => West Mifflin
+    [card_zip] => 15122
+    [email] => All128@pitt.edu
+    [admin-email] => 
+)
+
+UPDATE RECORDS SET `REDIRECT` = 'report.php?EXPORT=0&publisher_name=&STATUS=&DATE_FIELD=CREATED&FROM=2019-03-25&TO=2019-05-28&RES_ID=319280481598493++++&orderID=&GUEST_NAME=',`STATUS` = '0',`RES_ID` = '319280481598493',`GUEST_NAME` = 'Amanda  Leschak',`GUEST_EMAIL` = 'All128@pitt.edu',`ROOMS` = '1',`CHECK_IN` = '2019-06-27',`CHECK_OUT` = '2019-07-01',`GUESTS` = '2',MSG = CONCAT(MSG, '--'),`publisher-name` = 'excellence',`card-number` = '',`card-cvv` = '101',`card-name` = 'Amanda Leschak',`card-address1` = '6907 Wilson Street',`card-city` = 'West Mifflin',`card-state` = 'PA',`card-zip` = '15122',`card-country` = 'US',`card-type` = 'MasterCard',`card-exp` = '04/23',`card-amount` = '1664',`email` = 'All128@pitt.edu',`admin-email` = '',`INGENICO_TOKEN` = '' WHERE UID='149333'
+Array
+(
+    [ONLY_PENDING] => 1
+    [UPDATE] => 519151760842749
+    [MSG] => agencia se descuenta la comision**cqg
+    [card_amount] => 2376
+)
+
+UPDATE RECORDS SET `REDIRECT` = '',MSG = CONCAT(MSG, '--agencia se descuenta la comision**cqg'),`card-amount` = '2376' WHERE RES_ID='519151760842749' AND STATUS='0'
+Array
+(
+    [ONLY_PENDING] => 1
+    [UPDATE] => 519151760842749
+    [card_number] => 376450226007006
+    [INGENICO_TOKEN] => c46a1dc1-209c-45bc-9204-9f8b10fcd9ee
+    [card_cvv] => 3461
+    [card_name] => Eduardo A. Bensousan
+    [card_address1] => Sucre 2168
+    [card_city] => Buenos Aires
+    [card_state] => Buenos Aires
+    [card_zip] => 1428
+    [card_country] => AR
+    [card_type] => AmEx
+    [card_exp] => 08/21
+    [email] => 
+)
+
+UPDATE RECORDS SET `REDIRECT` = '',`card-number` = '376450226007006',`card-cvv` = '3461',`card-name` = 'Eduardo A. Bensousan',`card-address1` = 'Sucre 2168',`card-city` = 'Buenos Aires',`card-state` = 'Buenos Aires',`card-zip` = '1428',`card-country` = 'AR',`card-type` = 'AmEx',`card-exp` = '08/21',`email` = '',`INGENICO_TOKEN` = 'c46a1dc1-209c-45bc-9204-9f8b10fcd9ee' WHERE RES_ID='519151760842749' AND STATUS='0'
+Array
+(
+    [ONLY_PENDING] => 1
+    [UPDATE] => 319280481598493
+    [card_number] => 5243641021131989
+    [INGENICO_TOKEN] => 1a675773-96f7-4db5-ab5a-04a1f17b88bc
+    [card_cvv] => 987
+    [card_name] => Amanda Leschak
+    [card_address1] => 6907 Wilson Street
+    [card_city] => West Mifflin
+    [card_state] => PA
+    [card_zip] => 15122
+    [card_country] => US
+    [card_type] => MasterCard
+    [card_exp] => 04/23
+    [email] => All128@pitt.edu
+)
+
+UPDATE RECORDS SET `REDIRECT` = '',`card-number` = '5243641021131989',`card-cvv` = '987',`card-name` = 'Amanda Leschak',`card-address1` = '6907 Wilson Street',`card-city` = 'West Mifflin',`card-state` = 'PA',`card-zip` = '15122',`card-country` = 'US',`card-type` = 'MasterCard',`card-exp` = '04/23',`email` = 'All128@pitt.edu',`INGENICO_TOKEN` = '1a675773-96f7-4db5-ab5a-04a1f17b88bc' WHERE RES_ID='319280481598493' AND STATUS='0'
+Array
+(
+    [UPDATE] => 2230
+    [QS] => EXPORT=0&publisher_name=&STATUS=&DATE_FIELD=CREATED&FROM=2018-05-07&TO=2019-05-28&RES_ID=519147219858585++++&orderID=&GUEST_NAME=
+    [STATUS] => 0
+    [RES_ID] => 519147219858585
+    [publisher_name] => excellence1
+    [GUEST_NAME] => WANG YOON
+    [GUEST_EMAIL] => Allan@screenshotbrand.com
+    [CHECK_IN] => 2019-06-26
+    [CHECK_OUT] => 2019-06-30
+    [ROOMS] => 1
+    [GUESTS] => 2
+    [MSG] => 
+    [card_type] => Visa
+    [card_number] => 
+    [card_exp] => 09/21
+    [card-exp-MM] => 09
+    [card-exp-YY] => 21
+    [card_cvv] => 055
+    [INGENICO_TOKEN] => 
+    [card_amount] => 3688
+    [card_name] => wang yoon
+    [card_country] => US
+    [card_state] => NJ
+    [card_address1] => 19 Goffle Brook Ct
+    [card_city] => Hawthorne
+    [card_zip] => 07506
+    [email] => Allan@screenshotbrand.com
+    [admin-email] => 
+)
+
+UPDATE RECORDS SET `REDIRECT` = 'report.php?EXPORT=0&publisher_name=&STATUS=&DATE_FIELD=CREATED&FROM=2018-05-07&TO=2019-05-28&RES_ID=519147219858585++++&orderID=&GUEST_NAME=',`STATUS` = '0',`RES_ID` = '519147219858585',`GUEST_NAME` = 'WANG YOON',`GUEST_EMAIL` = 'Allan@screenshotbrand.com',`ROOMS` = '1',`CHECK_IN` = '2019-06-26',`CHECK_OUT` = '2019-06-30',`GUESTS` = '2',MSG = CONCAT(MSG, '--'),`publisher-name` = 'excellence1',`card-number` = '',`card-cvv` = '055',`card-name` = 'wang yoon',`card-address1` = '19 Goffle Brook Ct',`card-city` = 'Hawthorne',`card-state` = 'NJ',`card-zip` = '07506',`card-country` = 'US',`card-type` = 'Visa',`card-exp` = '09/21',`card-amount` = '3688',`email` = 'Allan@screenshotbrand.com',`admin-email` = '',`INGENICO_TOKEN` = '' WHERE UID='2230'
+Array
+(
+    [ONLY_PENDING] => 1
+    [UPDATE] => 519147219858585
+    [card_number] => 4147810002180857
+    [INGENICO_TOKEN] => 09c3d2ac-2951-4229-9ec3-4e77c2cd1992
+    [card_cvv] => 655
+    [card_name] => Wang Yoon
+    [card_address1] => 19 Goffle Brook Ct
+    [card_city] => Hawthorne
+    [card_state] => NJ
+    [card_zip] => 07506
+    [card_country] => US
+    [card_type] => Visa
+    [card_exp] => 09/21
+    [email] => Allan@screenshotbrand.com
+)
+
+UPDATE RECORDS SET `REDIRECT` = '',`card-number` = '4147810002180857',`card-cvv` = '655',`card-name` = 'Wang Yoon',`card-address1` = '19 Goffle Brook Ct',`card-city` = 'Hawthorne',`card-state` = 'NJ',`card-zip` = '07506',`card-country` = 'US',`card-type` = 'Visa',`card-exp` = '09/21',`email` = 'Allan@screenshotbrand.com',`INGENICO_TOKEN` = '09c3d2ac-2951-4229-9ec3-4e77c2cd1992' WHERE RES_ID='519147219858585' AND STATUS='0'
+Array
+(
+    [UPDATE] => 2683
+    [QS] => EXPORT=0&publisher_name=&STATUS=&DATE_FIELD=CREATED&FROM=2018-05-07&TO=2019-05-28&RES_ID=519148072993545++++&orderID=&GUEST_NAME=
+    [STATUS] => 0
+    [RES_ID] => 519148072993545
+    [publisher_name] => excellence1
+    [GUEST_NAME] => Wang Yoon
+    [GUEST_EMAIL] => star_enterprise@yahoo.com
+    [CHECK_IN] => 2019-06-26
+    [CHECK_OUT] => 2019-06-30
+    [ROOMS] => 1
+    [GUESTS] => 3
+    [MSG] => 
+    [card_type] => Visa
+    [card_number] => 
+    [card_exp] => 09/21
+    [card-exp-MM] => 09
+    [card-exp-YY] => 21
+    [card_cvv] => 055
+    [INGENICO_TOKEN] => 
+    [card_amount] => 3492
+    [card_name] => WANG YOON
+    [card_country] => US
+    [card_state] => NJ
+    [card_address1] => 19 Goffle Brook Court
+    [card_city] => Hawthorne
+    [card_zip] => 07506
+    [email] => star_enterprise@yahoo.com
+    [admin-email] => 
+)
+
+UPDATE RECORDS SET `REDIRECT` = 'report.php?EXPORT=0&publisher_name=&STATUS=&DATE_FIELD=CREATED&FROM=2018-05-07&TO=2019-05-28&RES_ID=519148072993545++++&orderID=&GUEST_NAME=',`STATUS` = '0',`RES_ID` = '519148072993545',`GUEST_NAME` = 'Wang Yoon',`GUEST_EMAIL` = 'star_enterprise@yahoo.com',`ROOMS` = '1',`CHECK_IN` = '2019-06-26',`CHECK_OUT` = '2019-06-30',`GUESTS` = '3',MSG = CONCAT(MSG, '--'),`publisher-name` = 'excellence1',`card-number` = '',`card-cvv` = '055',`card-name` = 'WANG YOON',`card-address1` = '19 Goffle Brook Court',`card-city` = 'Hawthorne',`card-state` = 'NJ',`card-zip` = '07506',`card-country` = 'US',`card-type` = 'Visa',`card-exp` = '09/21',`card-amount` = '3492',`email` = 'star_enterprise@yahoo.com',`admin-email` = '',`INGENICO_TOKEN` = '' WHERE UID='2683'
+Array
+(
+    [ONLY_PENDING] => 1
+    [UPDATE] => 519148072993545
+    [card_number] => 4147810002180857
+    [INGENICO_TOKEN] => 09c3d2ac-2951-4229-9ec3-4e77c2cd1992
+    [card_cvv] => 655
+    [card_name] => WANG YOON
+    [card_address1] => 19 Goffle Brook Court
+    [card_city] => Hawthorne
+    [card_state] => NJ
+    [card_zip] => 07506
+    [card_country] => US
+    [card_type] => Visa
+    [card_exp] => 09/21
+    [email] => star_enterprise@yahoo.com
+)
+
+UPDATE RECORDS SET `REDIRECT` = '',`card-number` = '4147810002180857',`card-cvv` = '655',`card-name` = 'WANG YOON',`card-address1` = '19 Goffle Brook Court',`card-city` = 'Hawthorne',`card-state` = 'NJ',`card-zip` = '07506',`card-country` = 'US',`card-type` = 'Visa',`card-exp` = '09/21',`email` = 'star_enterprise@yahoo.com',`INGENICO_TOKEN` = '09c3d2ac-2951-4229-9ec3-4e77c2cd1992' WHERE RES_ID='519148072993545' AND STATUS='0'

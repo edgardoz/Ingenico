@@ -1,0 +1,44 @@
+#TopNav {
+    width:600px;
+    height:49px;
+}
+ul.nav {
+    background: url(nav.jpg) no-repeat;
+    list-style-type:none;
+    width:600px;
+    height:49px;
+    overflow:hidden;
+    margin:0px;
+    padding:0 0 0 23px;
+}
+ul.nav li {
+    float:left;
+}
+ul.nav li a {
+    height:49px;
+    overflow:hidden;
+    display:block;
+    padding-top:49px;
+}
+ul.nav li.report a {width:97px;}
+ul.nav li.submit a {width:97px;}
+ul.nav li.cancel a {width:96px;}
+ul.nav li.run a {width:68px;}
+ul.nav li.settings a {width:107px;}
+ul.nav li.logout a {width:91px;}
+
+ul.nav li a:hover, ul.nav li a.current {background: url(nav.jpg) no-repeat;}
+ul.nav li.report a:hover {background-position:-23px -49px}
+ul.nav li.submit a:hover {background-position:-120px -49px}
+ul.nav li.cancel a:hover {background-position:-217px -49px}
+ul.nav li.run a:hover {background-position:-313px -49px}
+ul.nav li.settings a:hover {background-position:-381px -49px}
+ul.nav li.logout a:hover {background-position:-487px -49px}
+
+ul.nav li.report a.current {background-position:-23px -98px}
+ul.nav li.submit a.current {background-position:-120px -98px}
+ul.nav li.cancel a.current {background-position:-217px -98px}
+ul.nav li.run a.current {background-position:-313px -98px}
+ul.nav li.settings a.current {background-position:-381px -98px}
+ul.nav li.logout a.current {background-position:-487px -98px}
+

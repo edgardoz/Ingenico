@@ -1,0 +1,278 @@
+<?php
+
+//// PUT ALL THIS AT record.php TO GO LIVE WITH BOTH
+
+//ob_start(); print_r($_REQUEST); $output = ob_get_clean(); mail("juan.sarria@everlivesolutions.com","Ingenico",$output); //exit;
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+date_default_timezone_set('America/New_York');
+
+/*
+ *  0 = Pending to be charged
+ *  1 = Charged
+ *  2 = Cancelled
+ * -1 = Failed
+ */
+
+$INGENICO = true;
+include_once "db.php";
+
+$result = "Unknown Transaction.";
+$link = mysql_connect($DB_SERVER,$DB_USER,$DB_PWD) or die('Cannot connect to the DB');
+mysql_select_db($DB_NAME,$link) or die('Cannot select the DB');
+
+$data = array();
+$err = array();
+$debug = "";
+$inData = "";
+$errMsg = "";
+$result = "";
+$now = date("Y-m-j H:i:s");
+
+$FORCE = (isset($_REQUEST['FORCE']) && (int)$_REQUEST['FORCE']==1) ? true : false;
+$ONLY_PENDING = (isset($_REQUEST['ONLY_PENDING']) && (int)$_REQUEST['ONLY_PENDING']==1) ? true : false;
+$VERIFY = (isset($_REQUEST['VERIFY']) && (int)$_REQUEST['VERIFY']==1) ? true : false;
+$UPDATE = (isset($_REQUEST['UPDATE'])) ? (int)$_REQUEST['UPDATE'] : 0;
+$data['REDIRECT'] = (isset($_REQUEST['REDIRECT_URL'])) ? trim(addslashes($_REQUEST['REDIRECT_URL'])) : "";
+
+if ($UPDATE==0) {
+    $REDIRECT_METHOD = (isset($_REQUEST['REDIRECT_METHOD'])) ? trim(strtolower($_REQUEST['REDIRECT_METHOD'])) : "";
+
+    $data['CREATED'] = (isset($_REQUEST['CREATED'])&&$_REQUEST['CREATED']!="") ? $_REQUEST['CREATED'] : $now;
+    $data['RES_ID'] = (isset($_REQUEST['RES_ID'])) ? trim(addslashes($_REQUEST['RES_ID'])) : "";
+    $data['GUEST_NAME'] = (isset($_REQUEST['GUEST_NAME'])) ? trim(addslashes($_REQUEST['GUEST_NAME'])) : "";
+    $data['GUEST_EMAIL'] = (isset($_REQUEST['GUEST_EMAIL'])) ? trim(addslashes($_REQUEST['GUEST_EMAIL'])) : "";
+    $data['ROOMS'] = (isset($_REQUEST['ROOMS'])&&!empty($_REQUEST['ROOMS'])) ? $_REQUEST['ROOMS'] : 1;
+    $data['TRANS_TYPE'] = (isset($_REQUEST['TRANS_TYPE'])&&!empty($_REQUEST['TRANS_TYPE'])) ? (int)$_REQUEST['TRANS_TYPE'] : 1;
+    $data['CHECK_IN'] = (isset($_REQUEST['CHECK_IN'])) ? trim(addslashes($_REQUEST['CHECK_IN'])) : "";
+    $data['CHECK_OUT'] = (isset($_REQUEST['CHECK_OUT'])) ? trim(addslashes($_REQUEST['CHECK_OUT'])) : "";
+    $data['GUESTS'] = (isset($_REQUEST['GUESTS'])) ? (int)$_REQUEST['GUESTS'] : 0;
+    $data['CHILDREN'] = (isset($_REQUEST['CHILDREN'])) ? (int)$_REQUEST['CHILDREN'] : 0;
+    $data['INFANTS'] = (isset($_REQUEST['INFANTS'])) ? (int)$_REQUEST['INFANTS'] : 0;
+    $data['MSG'] = (isset($_REQUEST['MSG'])) ? trim(addslashes($_REQUEST['MSG'])) : "";
+
+    /* Mandatory Fields */
+    $data['publisher-name'] = (isset($_REQUEST['publisher_name'])) ? trim(addslashes($_REQUEST['publisher_name'])) : "";
+		$data['card-number'] = (isset($_REQUEST['card_number'])) ? trim(addslashes($_REQUEST['card_number'])) : "";
+    $data['card-cvv'] = (isset($_REQUEST['card_cvv'])) ? trim(addslashes($_REQUEST['card_cvv'])) : "";
+    $data['card-name'] = (isset($_REQUEST['card_name'])) ? trim(addslashes($_REQUEST['card_name'])) : "";
+    $data['card-address1'] = (isset($_REQUEST['card_address1'])) ? trim(addslashes($_REQUEST['card_address1'])) : "";
+    $data['card-city'] = (isset($_REQUEST['card_city'])) ? trim(addslashes($_REQUEST['card_city'])) : "";
+    $data['card-state'] = (isset($_REQUEST['card_state'])) ? trim(addslashes($_REQUEST['card_state'])) : "";
+    $data['card-zip'] = (isset($_REQUEST['card_zip'])) ? trim(addslashes($_REQUEST['card_zip'])) : "";
+    $data['card-country'] = (isset($_REQUEST['card_country'])) ? trim(addslashes($_REQUEST['card_country'])) : "";
+    $data['card-type'] = (isset($_REQUEST['card_type'])) ? trim(addslashes($_REQUEST['card_type'])) : "";
+    $data['card-exp'] = (isset($_REQUEST['card_exp'])) ? trim(addslashes($_REQUEST['card_exp'])) : "";
+    $data['card-amount'] = (isset($_REQUEST['card_amount'])) ? (int)$_REQUEST['card_amount'] : 0;
+    $data['email'] = (isset($_REQUEST['email'])) ? trim(addslashes($_REQUEST['email'])) : "";
+    $data['admin-email'] = (isset($_REQUEST['admin-email'])) ? trim(addslashes($_REQUEST['admin-email'])) : "";
+
+    $data['INGENICO_TOKEN'] = (isset($_REQUEST['INGENICO_TOKEN'])) ? trim(addslashes($_REQUEST['INGENICO_TOKEN'])) : "";
+
+    if (empty($data['RES_ID'])) array_push($err, "<errmsg>Reservation ID is empty</errmsg>");
+    if ($data['TRANS_TYPE']==1) {
+        if (empty($data['publisher-name'])) array_push($err, "<errmsg>Publisher Name is empty</errmsg>");
+				if (empty($data['card-number'])) array_push($err, "<errmsg>Credit Card Number is empty</errmsg>");
+        if (empty($data['card-cvv'])) array_push($err, "<errmsg>Credit Card CVV is empty</errmsg>");
+        if (empty($data['card-name'])) array_push($err, "<errmsg>Name as it Appears on CC is empty</errmsg>");
+        if (empty($data['card-address1'])) array_push($err, "<errmsg>Billing Street Address is empty</errmsg>");
+        if (empty($data['card-city'])) array_push($err, "<errmsg>Billing City Address is empty</errmsg>");
+        if (empty($data['card-state'])) array_push($err, "<errmsg>Billing State Address is empty</errmsg>");
+        if (empty($data['card-zip'])) array_push($err, "<errmsg>Billing Zip Address is empty</errmsg>");
+        if (empty($data['card-country'])) array_push($err, "<errmsg>Billing Country is empty</errmsg>");
+        if (empty($data['card-exp'])) array_push($err, "<errmsg>Credit Card Expiration Date is empty</errmsg>");
+        if ($data['card-amount']==0) array_push($err, "<errmsg>Total amount is empty</errmsg>");
+    }
+    if ($data['TRANS_TYPE']==2) {
+        $tmp = $data;
+        unset($data);
+        $data['TRANS_TYPE'] = $tmp['TRANS_TYPE'];
+        $data['RES_ID'] = $tmp['RES_ID'];
+        $data['MSG'] = $tmp['MSG'];
+    }
+
+    foreach($data as $key => $value) $inData .= "<{$key}>{$value}</{$key}>";
+
+    if (count($err)!=0) {
+        $errMsg = "<err>".join("",$err)."</err>";
+        $result = "Incomplete information.";
+    } else if ($VERIFY) {
+        $result = "Verified";
+    } else {
+        $query = "SELECT * FROM RECORDS WHERE RES_ID = '{$data['RES_ID']}' ORDER BY CREATED DESC LIMIT 0,1";
+        $retVal = mysql_query($query,$link) or die('Error query:  '.$query);
+        $iCount = (int)mysql_num_rows($retVal);
+
+        if ($data['TRANS_TYPE']==1) {
+            $keepGoing = true;
+            if ($iCount==1) {
+                $row = mysql_fetch_array($retVal);
+                $UID = $row['UID'];
+
+                if ((int)$row['STATUS']!=1) {
+                    $query = "UPDATE RECORDS SET STATUS='2', MSG=CONCAT(MSG,'--Rebooked'), CANCELLED='{$now}' WHERE RES_ID = '{$data['RES_ID']}' AND UID='{$UID}'";
+                    $retVal = mysql_query($query,$link) or die('Error query:  '.$query);
+                } else {
+                    if (!$FORCE) {
+                        $keepGoing = false;
+                        $result = statusMsg((int)$row['STATUS'], $data);
+                    }
+                }
+            }
+
+            if ($keepGoing) {
+                $field = array(); $value = array();
+                foreach($data as $key => $val) {
+                    array_push($field, "`{$key}`");
+                    array_push($value, "'{$val}'");
+                }
+                $query = "INSERT INTO RECORDS (".join(",",$field).") VALUES (".join(",",$value).");";
+                $retVal = mysql_query($query,$link) or die('Error query:  '.$query);
+                $result = ((int)$retVal==1) ? "success" : "failed";
+            }
+        } 
+
+        if ($data['TRANS_TYPE']==2) {
+            if ($iCount==0) {
+                $result = "Reservation ID {$data['RES_ID']} not found.";
+            } else {
+                $row = mysql_fetch_array($retVal);
+                if ((int)$row['STATUS']==0) {
+                    $MSG = $row['MSG'].((!empty($row['MSG']))?"--":"").$data['MSG'];
+                    $query = "UPDATE RECORDS SET TRANS_TYPE='{$data['TRANS_TYPE']}', STATUS='2', MSG='{$MSG}', CANCELLED='{$now}' WHERE RES_ID = '{$data['RES_ID']}' AND STATUS='0'";
+                    $retVal = mysql_query($query,$link) or die('Error query:  '.$query);
+                    $result = ((int)$retVal==1) ? "success" : "failed";
+                } else {
+                    $result = statusMsg((int)$row['STATUS'], $data);
+                }
+            }
+
+        }
+    }
+
+		// CANCEL IN OLD CCPS NO MATTER WHAT
+		// ob_start(); print_r($_REQUEST); $output = ob_get_clean(); mail("juan.sarria@everlivesolutions.com","Ingenico ".time(),$output); //exit;
+
+		$PARALLEL = false;
+
+		if ($PARALLEL || ( count($_REQUEST) && !isset($_REQUEST["UPDATE"]) && isset($data['TRANS_TYPE']) && $data['TRANS_TYPE']==2) ) {
+				$B_WEBSERVER = "https://secure-excellence-resorts.com/";
+				$url = $B_WEBSERVER.'ws/record.php';
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_POST, 1);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $_REQUEST);
+				curl_exec($ch);
+				curl_close($ch);
+		}
+
+
+} else {
+    //print "<pre>";print_r($_REQUEST);print "</pre>";
+    escribe("requestTMP",print_r($_REQUEST,true));
+    $REDIRECT_METHOD = "";
+    if (isset($_REQUEST['QS'])) $data['REDIRECT'] = "report.php?".$_REQUEST['QS'];
+    if (isset($_REQUEST['STATUS'])) $data['STATUS'] = $_REQUEST['STATUS'];
+    if (isset($_REQUEST['RES_ID'])) $data['RES_ID'] = trim(addslashes($_REQUEST['RES_ID']));
+    if (isset($_REQUEST['GUEST_NAME'])) $data['GUEST_NAME'] = trim(addslashes($_REQUEST['GUEST_NAME']));
+    if (isset($_REQUEST['GUEST_EMAIL'])) $data['GUEST_EMAIL'] = trim(addslashes($_REQUEST['GUEST_EMAIL']));
+    if (isset($_REQUEST['ROOMS'])) $data['ROOMS'] = $_REQUEST['ROOMS'];
+    if (isset($_REQUEST['TRANS_TYPE'])) $data['TRANS_TYPE'] = $_REQUEST['TRANS_TYPE'];
+    if (isset($_REQUEST['CHECK_IN'])) $data['CHECK_IN'] = $_REQUEST['CHECK_IN'];
+    if (isset($_REQUEST['CHECK_OUT'])) $data['CHECK_OUT'] = $_REQUEST['CHECK_OUT'];
+    if (isset($_REQUEST['GUESTS'])) $data['GUESTS'] = $_REQUEST['GUESTS'];
+    if (isset($_REQUEST['CHILDREN'])) $data['CHILDREN'] = $_REQUEST['CHILDREN'];
+    if (isset($_REQUEST['INFANTS'])) $data['INFANTS'] = $_REQUEST['INFANTS'];
+    if (isset($_REQUEST['MSG'])) $data['MSG'] = trim(addslashes($_REQUEST['MSG']));
+    if (isset($_REQUEST['publisher_name'])) $data['publisher-name'] = trim(addslashes($_REQUEST['publisher_name']));
+		if (isset($_REQUEST['card_number'])) $data['card-number'] = trim(addslashes($_REQUEST['card_number']));
+    if (isset($_REQUEST['card_cvv'])) $data['card-cvv'] = trim(addslashes($_REQUEST['card_cvv']));
+    if (isset($_REQUEST['card_name'])) $data['card-name'] = trim(addslashes($_REQUEST['card_name']));
+    if (isset($_REQUEST['card_address1'])) $data['card-address1'] = trim(addslashes($_REQUEST['card_address1']));
+    if (isset($_REQUEST['card_city'])) $data['card-city'] = trim(addslashes($_REQUEST['card_city']));
+    if (isset($_REQUEST['card_state'])) $data['card-state'] = trim(addslashes($_REQUEST['card_state']));
+    if (isset($_REQUEST['card_zip'])) $data['card-zip'] = trim(addslashes($_REQUEST['card_zip']));
+    if (isset($_REQUEST['card_country'])) $data['card-country'] = trim(addslashes($_REQUEST['card_country']));
+    if (isset($_REQUEST['card_type'])) $data['card-type'] = trim(addslashes($_REQUEST['card_type']));
+    if (isset($_REQUEST['card_exp'])) $data['card-exp'] = trim(addslashes($_REQUEST['card_exp']));
+    if (isset($_REQUEST['card_amount'])) $data['card-amount'] = (int)$_REQUEST['card_amount'];
+    if (isset($_REQUEST['email'])) $data['email'] = trim(addslashes($_REQUEST['email']));
+    if (isset($_REQUEST['admin-email'])) $data['admin-email'] = trim(addslashes($_REQUEST['admin-email']));
+
+    if (isset($_REQUEST['INGENICO_TOKEN'])) $data['INGENICO_TOKEN'] = trim(addslashes($_REQUEST['INGENICO_TOKEN']));
+
+    $field = array();
+    foreach($data as $key => $val) {
+        if ($key!="MSG") {
+            array_push($field, "`{$key}` = '{$val}'");
+        } else {
+            array_push($field, "MSG = CONCAT(MSG, '--{$val}')");
+        }
+        $inData .= "<{$key}>{$val}</{$key}>";
+    }
+    if ($ONLY_PENDING) {
+        $WHERE = "RES_ID='{$UPDATE}' AND STATUS='0'";
+    } else {
+        $WHERE = "UID='{$UPDATE}'";
+    }
+    $query = "UPDATE RECORDS SET ".join(",",$field)." WHERE $WHERE";
+    $retVal = mysql_query($query,$link) or die('Error query:  '.$query);
+    $result = ((int)$retVal==1) ? "updated" : "failed";
+    escribe("requestTMP",$query);
+    //print $query; exit;
+}
+
+//if (empty($data['REDIRECT'])) {
+//if (!empty($_REQUEST['card_number'])) {
+/*
+    header('Cache-Control: no-cache, must-revalidate');
+    header('Expires: Mon, 26 Mar 1997 05:00:00 GMT');
+    header("Content-Type:text/xml"); 
+		$inData = str_replace("&","&amp;",$inData);
+    print "<result><debug>{$debug}</debug><msg>{$result}</msg><data>{$inData}</data>{$errMsg}</result>";
+} else {
+    if ($REDIRECT_METHOD=="post") {
+    }
+*/
+    if ($REDIRECT_METHOD=="") {
+        $REDIRECT = $data['REDIRECT'];
+        if (!strpos($REDIRECT,"?")) $REDIRECT .= "?";
+        $REDIRECT .= "&result_msg={$result}";
+        print "
+            <script>
+                document.location.href = '{$REDIRECT}';
+            </script>
+        ";
+    }
+//}
+
+function statusMsg($STATUS, $data) {
+    $result = "";
+    switch ($STATUS) {
+        case 0:
+            $result = ((int)$retVal==1) ? "success" : "failed";
+            break;
+        case 1:
+            $result = "Reservation {$data['RES_ID']} already successfully processed.";
+            break;
+        case 2:
+            $result = "Reservation {$data['RES_ID']} already cancelled.";
+            break;
+        case -1:
+            $result = "Reservation {$data['RES_ID']} was already failed.";
+            break;
+        default:
+            $result = "Failed. Unknow Status for Reservation {$data['RES_ID']}";
+    }
+    return $result;
+}
+function escribe($nombre,$msg){
+        if($archivo = fopen($nombre.".txt", "a"))
+        {
+            fwrite($archivo, $msg. "\n");          
+     
+            fclose($archivo);
+        }
+    }
+
+?>
