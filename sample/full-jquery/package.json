@@ -17,7 +17,7 @@
     "bootstrap-sass": "^3.3.6",
     "connect-sdk-client-js": ">=3.9.0 <4.0.0",
     "handlebars": "^4.0.10",
-    "jquery": "^3.2.1",
+    "jquery": "^3.5.0",
     "jquery-validation": "^1.17.0",
     "node-forge": "^0.7.1",
     "systemjs": "^0.19.47"
