@@ -25,6 +25,6 @@
     "browser-sync": "^2.18.13",
     "concurrently": "^2.2.0",
     "lite-server": "^2.3.0",
-    "node-sass": "^4.9.0"
+    "node-sass": "^4.13.1"
   }
 }
